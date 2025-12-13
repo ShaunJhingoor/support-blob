@@ -24,6 +24,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta property="og:title" content="Bloby" />
+      <meta property="og:description" content="Say hello Bloby" />
+      <meta
+        property="og:image"
+        content="https://github-shaun-md.s3.us-west-2.amazonaws.com/bannerBloby.png"
+      />
+
+      <meta
+        property="og:url"
+        content="https://shaun-jhingoor-portfolio.vercel.app/"
+      />
+      <meta property="og:type" content="website" />
+      {/* <meta name="theme-color" content="#070B1A" /> */}
+      <meta name="theme-color" content="#0B1220" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
