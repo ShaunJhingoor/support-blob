@@ -24,25 +24,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <meta property="og:title" content="Bloby" />
-      <meta property="og:description" content="Say hello Bloby" />
-      <meta
-        property="og:image"
-        content="https://github-shaun-md.s3.us-west-2.amazonaws.com/bannerBloby.png"
-      />
+      <head>
+        <meta property="og:title" content="Bloby" />
+        <meta property="og:description" content="Say hello Bloby" />
+        <meta
+          property="og:image"
+          content="https://github-shaun-md.s3.us-west-2.amazonaws.com/bannerBloby.png"
+        />
+        <meta property="og:url" content="https://support-blob.vercel.app/" />
+        <meta property="og:type" content="website" />
 
-      <meta
-        property="og:url"
-        content="https://shaun-jhingoor-portfolio.vercel.app/"
-      />
-      <meta property="og:type" content="website" />
-      {/* <meta name="theme-color" content="#070B1A" /> */}
-      <meta name="theme-color" content="#7EF0C7" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="black-translucent"
-      />
+        <meta name="theme-color" content="#7EF0C7" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
