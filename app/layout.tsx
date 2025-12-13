@@ -37,7 +37,7 @@ export default function RootLayout({
       />
       <meta property="og:type" content="website" />
       {/* <meta name="theme-color" content="#070B1A" /> */}
-      <meta name="theme-color" content="#0B1220" />
+      <meta name="theme-color" content="#7EF0C7" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta
         name="apple-mobile-web-app-status-bar-style"
