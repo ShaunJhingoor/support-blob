@@ -1,4 +1,4 @@
-import EmotionalSupportBlob from "./components/EmotionalSupportBlob";
+import EmotionalSupportBlob from "../components/EmotionalSupportBlob";
 
 export default function BlobPage() {
   return (
