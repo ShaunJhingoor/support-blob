@@ -11,12 +11,18 @@ export default function CharacterScene({
   thinking,
   intensity,
   audioLevel,
+  spinning,
+  onSpinStart,
+  onSpinEnd,
 }: {
   mood: Mood;
   talking: boolean;
   thinking: boolean;
   intensity: number;
   audioLevel: number;
+  spinning: boolean;
+  onSpinStart?: () => void;
+  onSpinEnd?: () => void;
 }) {
   return (
     <div className="h-[360px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black">
@@ -40,9 +46,14 @@ export default function CharacterScene({
           thinking={thinking}
           intensity={intensity}
           audioLevel={audioLevel}
+          spinning={spinning}
         />
 
-        <OrbitControls enableZoom={false} />
+        <OrbitControls
+          enableZoom={false}
+          onStart={() => onSpinStart?.()}
+          onEnd={() => onSpinEnd?.()}
+        />
       </Canvas>
     </div>
   );

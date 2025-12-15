@@ -86,7 +86,44 @@ export default function EmotionalSupportBlob() {
   const rafRef = useRef<number | null>(null);
   const [audioLevel, setAudioLevel] = useState(0);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const spinMusicRef = useRef<HTMLAudioElement | null>(null);
+  const isSpinningRef = useRef(false);
+  const [spinning, setSpinning] = useState(false);
 
+  useEffect(() => {
+    const a = new Audio("/sfx/spin.mp3");
+    a.loop = true;
+    a.volume = 0.2;
+    spinMusicRef.current = a;
+
+    const stop = () => {
+      if (!spinMusicRef.current) return;
+      spinMusicRef.current.pause();
+    };
+    window.addEventListener("pointerup", stop);
+    window.addEventListener("blur", stop);
+
+    return () => {
+      window.removeEventListener("pointerup", stop);
+      window.removeEventListener("blur", stop);
+      a.pause();
+      spinMusicRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const music = spinMusicRef.current;
+    if (!music) return;
+
+    if (talking) {
+      music.pause();
+      return;
+    }
+
+    if (isSpinningRef.current) {
+      music.play().catch(() => {});
+    }
+  }, [talking]);
   function cleanupAudioUrl() {
     if (audioUrlRef.current) {
       URL.revokeObjectURL(audioUrlRef.current);
@@ -119,7 +156,6 @@ export default function EmotionalSupportBlob() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // attach audio meter once to the single audio element
   useEffect(() => {
     const a = audioRef.current;
     if (!a) return;
@@ -251,6 +287,25 @@ export default function EmotionalSupportBlob() {
         thinking={thinking}
         talking={talking}
         audioLevel={audioLevel}
+        spinning={spinning}
+        onSpinStart={() => {
+          setSpinning(true);
+          isSpinningRef.current = true;
+
+          if (talking) return;
+
+          const a = spinMusicRef.current;
+          if (!a) return;
+          a.play().catch(() => {});
+        }}
+        onSpinEnd={() => {
+          setSpinning(false);
+          isSpinningRef.current = false;
+
+          const a = spinMusicRef.current;
+          if (!a) return;
+          a.pause();
+        }}
       />
 
       {/* Mood row */}

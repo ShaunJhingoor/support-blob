@@ -18,17 +18,20 @@ export default function BlobCharacter({
   thinking = false,
   intensity = 0.4,
   audioLevel = 0,
+  spinning = false,
 }: {
   mood?: Mood;
   talking?: boolean;
   thinking?: boolean;
   intensity?: number;
   audioLevel?: number; // 0..1
+  spinning?: boolean;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   const smileRef = useRef<THREE.Mesh>(null);
   const talkMouthRef = useRef<THREE.Mesh>(null);
+  const surprisedMouthRef = useRef<THREE.Mesh>(null);
 
   // Color that subtly “softens” (mixes toward white) when intensity is low
   const { bodyColor, emissiveColor } = useMemo(() => {
@@ -102,6 +105,24 @@ export default function BlobCharacter({
         THREE.MathUtils.lerp(smileRef.current.scale.x, s, 0.25)
       );
     }
+    const surprised = spinning && !talking;
+    if (smileRef.current) {
+      smileRef.current.visible = !surprised && !talking;
+    }
+
+    if (smileRef.current) {
+      const target = talking || surprised ? 0.01 : 1;
+      smileRef.current.scale.setScalar(
+        THREE.MathUtils.lerp(smileRef.current.scale.x, target, 0.25)
+      );
+    }
+
+    if (surprisedMouthRef.current) {
+      const target = surprised ? 1 : 0.01;
+      surprisedMouthRef.current.scale.setScalar(
+        THREE.MathUtils.lerp(surprisedMouthRef.current.scale.x, target, 0.25)
+      );
+    }
   });
 
   return (
@@ -153,6 +174,16 @@ export default function BlobCharacter({
         {/* talking mouth */}
         <mesh ref={talkMouthRef} position={[0, -0.14, 0.01]} scale={0.01}>
           <circleGeometry args={[0.085, 32]} />
+          <meshBasicMaterial color="#0f172a" />
+        </mesh>
+
+        <mesh
+          ref={surprisedMouthRef}
+          position={[0, -0.14, 0.01]}
+          scale={[0.01, 0.015, 0.01]} // taller than wide = gasp
+        >
+          {/* ultra-thin outline */}
+          <ringGeometry args={[0.02, 0.053, 32]} />
           <meshBasicMaterial color="#0f172a" />
         </mesh>
       </group>
