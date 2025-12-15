@@ -180,9 +180,8 @@ export default function BlobCharacter({
         <mesh
           ref={surprisedMouthRef}
           position={[0, -0.14, 0.01]}
-          scale={[0.01, 0.015, 0.01]} // taller than wide = gasp
+          scale={[0.01, 0.015, 0.01]}
         >
-          {/* ultra-thin outline */}
           <ringGeometry args={[0.02, 0.053, 32]} />
           <meshBasicMaterial color="#0f172a" />
         </mesh>
